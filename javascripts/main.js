@@ -1,1 +1,3 @@
-console.error('YAY');
+const startApplication = require('./dataGate.js');
+
+startApplication.initializer();
