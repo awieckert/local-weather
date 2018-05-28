@@ -1,3 +1,5 @@
+const dom = require('./dom.js');
+
 let apiKey = '';
 
 const setKey = (key) => {
@@ -39,7 +41,7 @@ const setApiKey = () => {
 
 const currentWeather = (searchText) => {
   return new Promise ((resolve, reject) => {
-    $.ajax(`api.openweathermap.org/data/2.5/weather?zip=${searchText},us&appid=${apiKey}`).done((data) => {
+    $.ajax(`http://api.openweathermap.org/data/2.5/weather?zip=${searchText},us&appid=${apiKey}`).done((data) => {
       resolve(data);
     }).fail((err) => {
       reject(err);
@@ -47,15 +49,17 @@ const currentWeather = (searchText) => {
   });
 };
 
-const currentWeatherCall = () => {
-  currentWeather().then((data) => {
-    dom.printToDom(data);
+const currentWeatherCall = (zipCode) => {
+  currentWeather(zipCode).then((data) => {
+    dom.currentWeatherBuilder(data);
   }).catch((err) => {
     console.error('Poop Error: ', err);
-  })
+  });
 };
 
 module.exports = {
   validateSearch,
   setApiKey,
+  getKey,
+  currentWeatherCall,
 };
