@@ -57,9 +57,29 @@ const currentWeatherCall = (zipCode) => {
   });
 };
 
+const fiveDayWeather = () => {
+  const zipCode5Day = $('#search').val();
+  return new Promise ((resolve, reject) => {
+    $.ajax(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipCode5Day},us&appid=${apiKey}`).done((data) => {
+      resolve(data);
+    }).fail((err) => {
+      reject(err);
+    });
+  });
+};
+
+const fiveDayForecast = () => {
+  fiveDayWeather().then((data) => {
+    dom.fiveDayBuilder(data);
+  }).catch((err) => {
+    console.error('Poop Error: ', err);
+  });
+};
+
 module.exports = {
   validateSearch,
   setApiKey,
   getKey,
   currentWeatherCall,
+  fiveDayForecast,
 };
