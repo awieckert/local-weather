@@ -1,9 +1,18 @@
 const dom = require('./dom.js');
 
 let apiKey = '';
+let firebaseConfig = {};
 
 const setKey = (key) => {
   apiKey = key;
+};
+
+const setFirebaseConfig = (config) => {
+  firebaseConfig = config;
+};
+
+const getFirebaseConfig = () => {
+  return firebaseConfig;
 };
 
 const getKey = () => {
@@ -22,7 +31,7 @@ const validateSearch = (input) => {
 const getApiKey = () => {
   return new Promise ((resolve, reject) => {
     $.ajax('../db/apiKeys.json').done((data) => {
-      resolve(data.apiKey);
+      resolve(data);
     }).fail((err) => {
       reject(err);
     });
@@ -31,7 +40,9 @@ const getApiKey = () => {
 
 const setApiKey = () => {
   getApiKey().then((data) => {
-    setKey(data);
+    setKey(data.apiKey);
+    setFirebaseConfig(data.firebase);
+    firebase.initializeApp(getFirebaseConfig());
   }).catch((err) => {
     console.error('POOP an Error!: ', err);
   });
@@ -62,4 +73,5 @@ module.exports = {
   setApiKey,
   getKey,
   currentWeatherCall,
+  getFirebaseConfig,
 };

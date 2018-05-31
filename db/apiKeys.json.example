@@ -1,3 +1,11 @@
 {
-  "apiKey": "insert API Key Here"
+  "apiKey": "insert API Key Here",
+   "firebase": {
+    "apiKey": "",
+    "authDomain": "",
+    "databaseURL": "",
+    "projectId": "",
+    "storageBucket": "",
+    "messagingSenderId": ""
+  }
 }
