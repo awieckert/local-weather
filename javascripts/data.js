@@ -1,7 +1,10 @@
 const dom = require('./dom.js');
+// const firebaseAPI = require('./firebaseAPI.js');
 
 let apiKey = '';
 let firebaseConfig = {};
+
+// Get and set API Keys
 
 const setKey = (key) => {
   apiKey = key;
@@ -19,6 +22,8 @@ const getKey = () => {
   return apiKey;
 };
 
+// Validate Search ---- is US Zip Code
+
 const validateSearch = (input) => {
   const checkedInput = /^\d+$/.test(input);
   if (checkedInput && input.length === 5) {
@@ -27,6 +32,8 @@ const validateSearch = (input) => {
     return false;
   }
 };
+
+// Grabs API Data from apiKeys.json
 
 const getApiKey = () => {
   return new Promise ((resolve, reject) => {
@@ -37,6 +44,8 @@ const getApiKey = () => {
     });
   });
 };
+
+// Sets the API keys to variables in this file. Initializes Firebase
 
 const setApiKey = () => {
   getApiKey().then((data) => {
@@ -68,6 +77,8 @@ const currentWeatherCall = (zipCode) => {
   });
 };
 
+// Five Day Weather Promise
+
 const fiveDayWeather = () => {
   const zipCode5Day = $('#search').val();
   return new Promise ((resolve, reject) => {
@@ -78,6 +89,8 @@ const fiveDayWeather = () => {
     });
   });
 };
+
+// Makes the call to API for Five Day forecast
 
 const fiveDayForecast = () => {
   fiveDayWeather().then((data) => {
@@ -94,4 +107,5 @@ module.exports = {
   currentWeatherCall,
   getFirebaseConfig,
   fiveDayForecast,
+  firebaseConfig,
 };

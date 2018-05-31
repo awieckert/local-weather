@@ -5,6 +5,7 @@ const initializer = () => {
   events.addSearchEvent();
   data.setApiKey();
   events.add5DayEvent();
+  events.addSaveMeEvents();
 };
 
 module.exports = {
