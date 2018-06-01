@@ -76,8 +76,10 @@ const checkBoxEvent = (e) => {
   const weatherCard = $(e.target).closest('.weather');
   const labelToCheck = weatherCard.find('label');
   if ($(labelToCheck).hasClass('active')) {
+    // need to send modified weather object to firebase here
     $(weatherCard).removeClass('red');
   } else {
+    // need to send modified weather object to firebase here
     $(weatherCard).addClass('red');
   }
 };
