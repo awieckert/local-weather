@@ -18,6 +18,10 @@ const add5DayEvent = () => {
   $('body').on('click', '#five-day', fiveDayForcastCall);
 };
 
+const addDeleteEvent = () => {
+  $('body').on('click', '.delete-me', deleteFromFirebase);
+};
+
 const fiveDayForcastCall = () => {
   data.fiveDayForecast();
 };
@@ -53,9 +57,20 @@ const getSavedForecasts = () => {
   });
 };
 
+const deleteFromFirebase = (e) => {
+  const forecastTarget = $(e.target).closest('.weather');
+  const forecastToDelete = forecastTarget.data('id');
+  firebaseAPI.deleteStuff(forecastToDelete).then(() => {
+    getSavedForecasts();
+  }).catch((err) => {
+    console.error('Delete Error: ', err);
+  });
+};
+
 module.exports = {
   addSearchEvent,
   add5DayEvent,
   addSaveMeEvents,
   addSavedForecastsEvent,
+  addDeleteEvent,
 };

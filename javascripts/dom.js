@@ -50,7 +50,7 @@ const savedForecastsBuilder = (forecastsArray) => {
   let stringToPrint = '';
   forecastsArray.forEach((item) => {
     stringToPrint += `<div class="col-sm-6 col-md-4 weather-div">`;
-    stringToPrint +=   `<div class="thumbnail weather">`;
+    stringToPrint +=   `<div data-id='${item.id}' class="thumbnail weather">`;
     stringToPrint +=     `<div class="caption">`;
     stringToPrint +=       `<h3 class='name' data-name='${item.name}'>${item.name}</h3>`;
     if (item.date) {
@@ -60,7 +60,7 @@ const savedForecastsBuilder = (forecastsArray) => {
     stringToPrint +=       `<h4 class='description' data-description='${item.description}'>Conditions: ${item.description}</h4>`;
     stringToPrint +=       `<h4 class='pressure' data-pressure='${item.pressure}'>Air Pressure: ${item.pressure} Pa</h4>`;
     stringToPrint +=       `<h4 class='speed' data-speed='${item.speed}'>Wind Speed: ${item.speed} Knots</h4>`;
-    stringToPrint +=       `<p><a class="btn btn-primary save-me" role="button">Save Forecast</a></p>`;
+    stringToPrint +=       `<p><a class="btn btn-primary save-me" role="button">Save Forecast</a><a class="btn btn-primary delete-me" role="button">Delete</a></p>`;
     stringToPrint +=     `</div>`;
     stringToPrint +=   `</div>`;
     stringToPrint += `</div>`;
