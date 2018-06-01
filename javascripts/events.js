@@ -2,6 +2,10 @@ const data = require('./data.js');
 const firebaseAPI = require('./firebaseAPI.js');
 const dom = require('./dom.js');
 
+const addCheckBoxEvent = () => {
+  $('body').on('click', '.checkbox', checkBoxEvent);
+};
+
 const addSaveMeEvents = () => {
   $('body').on('click', '.save-me', saveToFirebase);
 };
@@ -16,6 +20,10 @@ const addSearchEvent = () => {
 
 const add5DayEvent = () => {
   $('body').on('click', '#five-day', fiveDayForcastCall);
+};
+
+const addDeleteEvent = () => {
+  $('body').on('click', '.delete-me', deleteFromFirebase);
 };
 
 const fiveDayForcastCall = () => {
@@ -53,9 +61,31 @@ const getSavedForecasts = () => {
   });
 };
 
+const deleteFromFirebase = (e) => {
+  const forecastTarget = $(e.target).closest('.weather');
+  const forecastToDelete = forecastTarget.data('id');
+  firebaseAPI.deleteStuff(forecastToDelete).then(() => {
+    getSavedForecasts();
+  }).catch((err) => {
+    console.error('Delete Error: ', err);
+  });
+};
+
+const checkBoxEvent = (e) => {
+  const cardTarget = e.target;
+  const weatherCard = $(e.target).closest('.weather');
+  if ($(cardTarget).hasClass('active')) {
+    $(weatherCard).removeClass('red');
+  } else {
+    $(weatherCard).addClass('red');
+  }
+};
+
 module.exports = {
   addSearchEvent,
   add5DayEvent,
   addSaveMeEvents,
   addSavedForecastsEvent,
+  addDeleteEvent,
+  addCheckBoxEvent,
 };

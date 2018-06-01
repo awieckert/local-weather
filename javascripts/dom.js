@@ -7,6 +7,9 @@ const currentWeatherBuilder = (currentWeather) => {
   stringToPrint += `<div class="row">`;
   stringToPrint += `<div class="col-sm-6 col-md-4 col-md-offset-4 weather-div">`;
   stringToPrint +=   `<div class="thumbnail weather">`;
+  stringToPrint +=    `<div class='col-md-offset-10 btn-group' data-toggle="buttons">`;
+  stringToPrint +=      `<label class="btn btn-primary checkbox"><input type="checkbox" autocomplete="off">Scarry!</label>`;
+  stringToPrint +=    `</div>`;
   stringToPrint +=     `<div class="caption">`;
   stringToPrint +=       `<h3 class='name' data-name='${currentWeather.name}'>${currentWeather.name}</h3>`;
   stringToPrint +=       `<h4 class='temp' data-temp='${currentWeather.main.temp}'>Temperature: ${currentWeather.main.temp} Kelvin</h4>`;
@@ -28,6 +31,9 @@ const fiveDayBuilder = (data) => {
     if (i % 8 === 0) {
       stringToPrint += `<div class="col-sm-6 col-md-4 weather-div">`;
       stringToPrint +=   `<div class="thumbnail weather">`;
+      stringToPrint +=    `<div class='col-md-offset-9 btn-group' data-toggle="buttons">`;
+      stringToPrint +=      `<label class="btn btn-primary checkbox"><input type="checkbox" autocomplete="off">Scarry!</label>`;
+      stringToPrint +=    `</div>`;
       stringToPrint +=     `<div class="caption">`;
       stringToPrint +=       `<h3 class='name' data-name='${data.city.name}'>${data.city.name}</h3>`;
       stringToPrint +=       `<h4 class='date' data-date='${item.dt_txt}'>Date and Time: ${item.dt_txt}</h4>`;
@@ -50,7 +56,10 @@ const savedForecastsBuilder = (forecastsArray) => {
   let stringToPrint = '';
   forecastsArray.forEach((item) => {
     stringToPrint += `<div class="col-sm-6 col-md-4 weather-div">`;
-    stringToPrint +=   `<div class="thumbnail weather">`;
+    stringToPrint +=   `<div data-id='${item.id}' class="thumbnail weather">`;
+    stringToPrint +=    `<div class='col-md-offset-9 btn-group' data-toggle="buttons">`;
+    stringToPrint +=      `<label class="btn btn-primary checkbox"><input type="checkbox" autocomplete="off">Scarry!</label>`;
+    stringToPrint +=    `</div>`;
     stringToPrint +=     `<div class="caption">`;
     stringToPrint +=       `<h3 class='name' data-name='${item.name}'>${item.name}</h3>`;
     if (item.date) {
@@ -60,7 +69,7 @@ const savedForecastsBuilder = (forecastsArray) => {
     stringToPrint +=       `<h4 class='description' data-description='${item.description}'>Conditions: ${item.description}</h4>`;
     stringToPrint +=       `<h4 class='pressure' data-pressure='${item.pressure}'>Air Pressure: ${item.pressure} Pa</h4>`;
     stringToPrint +=       `<h4 class='speed' data-speed='${item.speed}'>Wind Speed: ${item.speed} Knots</h4>`;
-    stringToPrint +=       `<p><a class="btn btn-primary save-me" role="button">Save Forecast</a></p>`;
+    stringToPrint +=       `<p><a class="btn btn-primary save-me" role="button">Save Forecast</a><a class="btn btn-primary delete-me" role="button">Delete</a></p>`;
     stringToPrint +=     `</div>`;
     stringToPrint +=   `</div>`;
     stringToPrint += `</div>`;

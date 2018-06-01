@@ -8,6 +8,8 @@ const initializer = () => {
   events.add5DayEvent();
   events.addSaveMeEvents();
   events.addSavedForecastsEvent();
+  events.addDeleteEvent();
+  events.addCheckBoxEvent();
 };
 
 module.exports = {

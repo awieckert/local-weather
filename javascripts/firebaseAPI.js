@@ -49,7 +49,22 @@ const grabSavedForecasts = () => {
   });
 };
 
+const deleteStuff = (forecastToDelete) => {
+  const firebaseConfig = data.getFirebaseConfig();
+  return new Promise ((resolve, reject) => {
+    $.ajax({
+      method: 'DELETE',
+      url: `${firebaseConfig.databaseURL}/saveForecasts/${forecastToDelete}.json`,
+    }).done((thisWillBeNull) => {
+      resolve(thisWillBeNull);
+    }).fail((err) => {
+      reject(err);
+    });
+  });
+};
+
 module.exports = {
   saveForecast,
   grabSavedForecasts,
+  deleteStuff,
 };
