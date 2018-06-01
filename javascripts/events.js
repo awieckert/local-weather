@@ -49,6 +49,7 @@ const saveToFirebase = (e) => {
   forecastToSave.pressure = targetForecast.find('.pressure').data('pressure');
   forecastToSave.speed = targetForecast.find('.speed').data('speed');
   forecastToSave.date = targetForecast.find('.date').data('date');
+  forecastToSave.icon = targetForecast.find('img').data('icon');
 
   firebaseAPI.saveForecast(forecastToSave);
 };
@@ -72,9 +73,9 @@ const deleteFromFirebase = (e) => {
 };
 
 const checkBoxEvent = (e) => {
-  const cardTarget = e.target;
   const weatherCard = $(e.target).closest('.weather');
-  if ($(cardTarget).hasClass('active')) {
+  const labelToCheck = weatherCard.find('label');
+  if ($(labelToCheck).hasClass('active')) {
     $(weatherCard).removeClass('red');
   } else {
     $(weatherCard).addClass('red');
