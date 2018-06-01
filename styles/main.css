@@ -13,3 +13,7 @@ input {
 .weather-div {
   padding-top: 20px;
 }
+
+.red {
+  background-color: rgb(158, 5, 5);
+}

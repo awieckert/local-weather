@@ -2,6 +2,10 @@ const data = require('./data.js');
 const firebaseAPI = require('./firebaseAPI.js');
 const dom = require('./dom.js');
 
+const addCheckBoxEvent = () => {
+  $('body').on('click', '.checkbox', checkBoxEvent);
+};
+
 const addSaveMeEvents = () => {
   $('body').on('click', '.save-me', saveToFirebase);
 };
@@ -67,10 +71,21 @@ const deleteFromFirebase = (e) => {
   });
 };
 
+const checkBoxEvent = (e) => {
+  const cardTarget = e.target;
+  const weatherCard = $(e.target).closest('.weather');
+  if ($(cardTarget).hasClass('active')) {
+    $(weatherCard).removeClass('red');
+  } else {
+    $(weatherCard).addClass('red');
+  }
+};
+
 module.exports = {
   addSearchEvent,
   add5DayEvent,
   addSaveMeEvents,
   addSavedForecastsEvent,
   addDeleteEvent,
+  addCheckBoxEvent,
 };
