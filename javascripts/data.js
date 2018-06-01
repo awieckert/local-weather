@@ -49,9 +49,10 @@ const getApiKey = () => {
 
 const setApiKey = () => {
   getApiKey().then((data) => {
+    console.log('Api Data in Data.js: ', data);
     setKey(data.apiKey);
     setFirebaseConfig(data.firebase);
-    firebase.initializeApp(getFirebaseConfig());
+    firebase.initializeApp(firebaseConfig);
   }).catch((err) => {
     console.error('POOP an Error!: ', err);
   });
@@ -107,5 +108,4 @@ module.exports = {
   currentWeatherCall,
   getFirebaseConfig,
   fiveDayForecast,
-  firebaseConfig,
 };

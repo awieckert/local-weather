@@ -1,8 +1,13 @@
 const data = require('./data.js');
 const firebaseAPI = require('./firebaseAPI.js');
+const dom = require('./dom.js');
 
 const addSaveMeEvents = () => {
   $('body').on('click', '.save-me', saveToFirebase);
+};
+
+const addSavedForecastsEvent = () => {
+  $('#saved').on('click', getSavedForecasts);
 };
 
 const addSearchEvent = () => {
@@ -35,13 +40,22 @@ const saveToFirebase = (e) => {
   forecastToSave.description = targetForecast.find('.description').data('description');
   forecastToSave.pressure = targetForecast.find('.pressure').data('pressure');
   forecastToSave.speed = targetForecast.find('.speed').data('speed');
-  forecastToSave.data = targetForecast.find('.date').data('date');
+  forecastToSave.date = targetForecast.find('.date').data('date');
 
   firebaseAPI.saveForecast(forecastToSave);
+};
+
+const getSavedForecasts = () => {
+  firebaseAPI.grabSavedForecasts().then((forecastArray) => {
+    dom.savedForecastsBuilder(forecastArray);
+  }).catch((err) => {
+    console.error('Poop butt no forecasts: ', err);
+  });
 };
 
 module.exports = {
   addSearchEvent,
   add5DayEvent,
   addSaveMeEvents,
+  addSavedForecastsEvent,
 };

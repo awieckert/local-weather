@@ -5,3 +5,11 @@ body {
 input {
   height: 30px;
 }
+
+.weather {
+  height: 300px;
+}
+
+.weather-div {
+  padding-top: 20px;
+}

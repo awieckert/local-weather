@@ -17,9 +17,10 @@ const data = require('./data.js');
 
 const saveForecast = (newForecast) => {
   return new Promise ((resolve, reject) => {
+    const firebaseConfig = data.getFirebaseConfig();
     $.ajax({
       method: 'POST',
-      url: `${data.firebaseConfig.databaseURL}/saveForecasts.json`,
+      url: `${firebaseConfig.databaseURL}/saveForecasts.json`,
       data: JSON.stringify(newForecast),
     }).done((uniqueKey) => {
       resolve(uniqueKey);
@@ -29,6 +30,26 @@ const saveForecast = (newForecast) => {
   });
 };
 
+const grabSavedForecasts = () => {
+  const savedForecastArray = [];
+  const firebaseConfig = data.getFirebaseConfig();
+  return new Promise ((resolve, reject) => {
+    $.ajax({
+      method: 'GET',
+      url: `${firebaseConfig.databaseURL}/saveForecasts.json`,
+    }).done((data) => {
+      Object.keys(data).forEach((key) => {
+        data[key].id = key;
+        savedForecastArray.push(data[key]);
+      });
+      resolve(savedForecastArray);
+    }).fail((err) => {
+      reject(err);
+    });
+  });
+};
+
 module.exports = {
   saveForecast,
+  grabSavedForecasts,
 };

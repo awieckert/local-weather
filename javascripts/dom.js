@@ -5,7 +5,7 @@ const printToDom = (divID, stringToPrint) => {
 const currentWeatherBuilder = (currentWeather) => {
   let stringToPrint = '';
   stringToPrint += `<div class="row">`;
-  stringToPrint += `<div class="col-sm-6 col-md-4 col-md-offset-4">`;
+  stringToPrint += `<div class="col-sm-6 col-md-4 col-md-offset-4 weather-div">`;
   stringToPrint +=   `<div class="thumbnail weather">`;
   stringToPrint +=     `<div class="caption">`;
   stringToPrint +=       `<h3 class='name' data-name='${currentWeather.name}'>${currentWeather.name}</h3>`;
@@ -26,7 +26,7 @@ const fiveDayBuilder = (data) => {
   stringToPrint += `<div class="row">`;
   data.list.forEach((item, i) => {
     if (i % 8 === 0) {
-      stringToPrint += `<div class="col-sm-6 col-md-4">`;
+      stringToPrint += `<div class="col-sm-6 col-md-4 weather-div">`;
       stringToPrint +=   `<div class="thumbnail weather">`;
       stringToPrint +=     `<div class="caption">`;
       stringToPrint +=       `<h3 class='name' data-name='${data.city.name}'>${data.city.name}</h3>`;
@@ -45,7 +45,31 @@ const fiveDayBuilder = (data) => {
   printToDom('#weather-container', stringToPrint);
 };
 
+const savedForecastsBuilder = (forecastsArray) => {
+  console.log('Forecasts Array: ', forecastsArray);
+  let stringToPrint = '';
+  forecastsArray.forEach((item) => {
+    stringToPrint += `<div class="col-sm-6 col-md-4 weather-div">`;
+    stringToPrint +=   `<div class="thumbnail weather">`;
+    stringToPrint +=     `<div class="caption">`;
+    stringToPrint +=       `<h3 class='name' data-name='${item.name}'>${item.name}</h3>`;
+    if (item.date) {
+      stringToPrint +=       `<h4 class='date' data-date='${item.date}'>Date and Time: ${item.date}</h4>`;
+    }
+    stringToPrint +=       `<h4 class='temp' data-temp='${item.temp}'>Temperature: ${item.temp} Kelvin</h4>`;
+    stringToPrint +=       `<h4 class='description' data-description='${item.description}'>Conditions: ${item.description}</h4>`;
+    stringToPrint +=       `<h4 class='pressure' data-pressure='${item.pressure}'>Air Pressure: ${item.pressure} Pa</h4>`;
+    stringToPrint +=       `<h4 class='speed' data-speed='${item.speed}'>Wind Speed: ${item.speed} Knots</h4>`;
+    stringToPrint +=       `<p><a class="btn btn-primary save-me" role="button">Save Forecast</a></p>`;
+    stringToPrint +=     `</div>`;
+    stringToPrint +=   `</div>`;
+    stringToPrint += `</div>`;
+  });
+  printToDom('#weather-container', stringToPrint);
+};
+
 module.exports = {
   currentWeatherBuilder,
   fiveDayBuilder,
+  savedForecastsBuilder,
 };
