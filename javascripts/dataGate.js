@@ -10,6 +10,7 @@ const initializer = () => {
   events.addSavedForecastsEvent();
   events.addDeleteEvent();
   events.addCheckBoxEvent();
+  events.add3DayEvent();
 };
 
 module.exports = {

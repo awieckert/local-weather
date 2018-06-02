@@ -19,15 +19,23 @@ const addSearchEvent = () => {
 };
 
 const add5DayEvent = () => {
-  $('body').on('click', '#five-day', fiveDayForcastCall);
+  $('body').on('click', '.five-day', fiveDayForecastCall);
+};
+
+const add3DayEvent = () => {
+  $('body').on('click', '.three-day', threeDayForecastCall);
 };
 
 const addDeleteEvent = () => {
   $('body').on('click', '.delete-me', deleteFromFirebase);
 };
 
-const fiveDayForcastCall = () => {
+const fiveDayForecastCall = () => {
   data.fiveDayForecast();
+};
+
+const threeDayForecastCall = () => {
+  data.threeDayForecast();
 };
 
 const searchWeather = (e) => {
@@ -107,4 +115,5 @@ module.exports = {
   addSavedForecastsEvent,
   addDeleteEvent,
   addCheckBoxEvent,
+  add3DayEvent,
 };
