@@ -38,10 +38,12 @@ const grabSavedForecasts = () => {
       method: 'GET',
       url: `${firebaseConfig.databaseURL}/saveForecasts.json`,
     }).done((data) => {
-      Object.keys(data).forEach((key) => {
-        data[key].id = key;
-        savedForecastArray.push(data[key]);
-      });
+      if (data !== null) {
+        Object.keys(data).forEach((key) => {
+          data[key].id = key;
+          savedForecastArray.push(data[key]);
+        });
+      }
       resolve(savedForecastArray);
     }).fail((err) => {
       reject(err);
