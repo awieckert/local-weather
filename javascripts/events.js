@@ -70,6 +70,7 @@ const deleteFromFirebase = (e) => {
   }).catch((err) => {
     console.error('Delete Error: ', err);
   });
+  $(e.target).closest('.weather-div').remove();
 };
 
 const checkBoxEvent = (e) => {
