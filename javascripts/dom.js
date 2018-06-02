@@ -56,7 +56,11 @@ const savedForecastsBuilder = (forecastsArray) => {
   let stringToPrint = '';
   forecastsArray.forEach((item) => {
     stringToPrint += `<div class="col-sm-6 col-md-4 weather-div">`;
-    stringToPrint +=   `<div data-id='${item.id}' class="thumbnail weather">`;
+    if (item.isScarry) {
+      stringToPrint +=   `<div data-id='${item.id}' class="thumbnail weather red">`;
+    } else {
+      stringToPrint +=   `<div data-id='${item.id}' class="thumbnail weather">`;
+    }
     stringToPrint +=    `<div class='col-md-offset-9 btn-group' data-toggle="buttons">`;
     stringToPrint +=      `<label class="btn btn-danger checkbox"><i class="far fa-frown fa-2x"><input type="checkbox" autocomplete="off"></i></label>`;
     stringToPrint +=    `</div>`;

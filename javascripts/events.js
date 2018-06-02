@@ -75,12 +75,28 @@ const deleteFromFirebase = (e) => {
 const checkBoxEvent = (e) => {
   const weatherCard = $(e.target).closest('.weather');
   const labelToCheck = weatherCard.find('label');
+  const forecastToUpdate = {};
+
+  forecastToUpdate.name = weatherCard.find('.name').data('name');
+  forecastToUpdate.temp = weatherCard.find('.temp').data('temp');
+  forecastToUpdate.description = weatherCard.find('.description').data('description');
+  forecastToUpdate.pressure = weatherCard.find('.pressure').data('pressure');
+  forecastToUpdate.speed = weatherCard.find('.speed').data('speed');
+  forecastToUpdate.date = weatherCard.find('.date').data('date');
+  forecastToUpdate.icon = weatherCard.find('img').data('icon');
+  forecastToUpdate.id = weatherCard.data('id');
+  forecastToUpdate.isScarry = false;
+
   if ($(labelToCheck).hasClass('active')) {
     // need to send modified weather object to firebase here
+    forecastToUpdate.isScarry = false;
     $(weatherCard).removeClass('red');
+    firebaseAPI.updateForecast(forecastToUpdate);
   } else {
     // need to send modified weather object to firebase here
+    forecastToUpdate.isScarry = true;
     $(weatherCard).addClass('red');
+    firebaseAPI.updateForecast(forecastToUpdate);
   }
 };
 
