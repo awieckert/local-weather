@@ -10,6 +10,7 @@ input {
 
 .weather {
   height: 320px;
+  opacity: 0.95;
 }
 
 .weather-div {
