@@ -101,6 +101,25 @@ const fiveDayForecast = () => {
   });
 };
 
+const threeDayWeather = () => {
+  const zipCode3Day = $('#search').val();
+  return new Promise ((resolve, reject) => {
+    $.ajax(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipCode3Day},us&appid=${apiKey}`).done((data) => {
+      resolve(data);
+    }).fail((err) => {
+      reject(err);
+    });
+  });
+};
+
+const threeDayForecast = () => {
+  threeDayWeather().then((data) => {
+    dom.threeDayBuilder(data);
+  }).catch((err) => {
+    console.error('Poop Error: ', err);
+  });
+};
+
 module.exports = {
   validateSearch,
   setApiKey,
@@ -108,4 +127,5 @@ module.exports = {
   currentWeatherCall,
   getFirebaseConfig,
   fiveDayForecast,
+  threeDayForecast,
 };
