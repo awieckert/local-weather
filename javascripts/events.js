@@ -145,33 +145,24 @@ const showRegistration = () => {
 };
 
 const addCreateAccountEvent = () => {
-  $('#register-submit').on('click', (e) => {
-    e.preventDefault();
-    const email = $('#registerEmail').val();
-    const password = $('#registerPassword').val();
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error('Create Account Error: ', errorMessage, ' ', errorCode);
-    });
-  });
+  $('#register-submit').on('click', createAccount);
 };
 
-// const createAccount = (e) => {
-//   e.preventDefault();
-//   const email = $('#registerEmail').val();
-//   const password = $('#registerPassword').val();
-//   firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-//     $('#registerEmail').val('');
-//     $('#registerPassword').val('');
-//     $('#register-form').addClass('hide');
-//     $('#login-form').removeClass('hide');
-//   }).catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     console.error('Create Account Error: ', errorMessage, ' ', errorCode);
-//   });
-// };
+const createAccount = (e) => {
+  e.preventDefault();
+  const email = $('#registerEmail').val();
+  const password = $('#registerPassword').val();
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+    $('#registerEmail').val('');
+    $('#registerPassword').val('');
+    $('#register-form').addClass('hide');
+    $('#login-form').removeClass('hide');
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error('Create Account Error: ', errorMessage, ' ', errorCode);
+  });
+};
 
 module.exports = {
   addSearchEvent,

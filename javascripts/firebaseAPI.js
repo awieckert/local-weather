@@ -15,7 +15,7 @@
 
 const data = require('./data.js');
 
-const uid = '';
+let uid = '';
 
 const setUID = (userID) => {
   uid = userID;

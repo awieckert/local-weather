@@ -13,6 +13,7 @@ const initializer = () => {
   events.add3DayEvent();
   events.addShowRegisterEvent();
   events.addLogInEvent();
+  events.addCreateAccountEvent();
 };
 
 module.exports = {
