@@ -1,4 +1,5 @@
 const dom = require('./dom.js');
+// const {checkLoginStatus,} = require('./auth.js');
 // const firebaseAPI = require('./firebaseAPI.js');
 
 let apiKey = '';
@@ -53,6 +54,7 @@ const setApiKey = () => {
     setKey(data.apiKey);
     setFirebaseConfig(data.firebase);
     firebase.initializeApp(firebaseConfig);
+    // checkLoginStatus();
   }).catch((err) => {
     console.error('POOP an Error!: ', err);
   });

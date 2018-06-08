@@ -108,6 +108,71 @@ const checkBoxEvent = (e) => {
   }
 };
 
+// Add Event to Log-in Button
+
+const addLogInEvent = () => {
+  $('#login-button').on('click', signInUser);
+};
+
+// Call to firebase. User Sign in
+
+const signInUser = (e) => {
+  e.preventDefault();
+  const email = $('#loginEmail').val();
+  const password = $('#loginPassword').val();
+  firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+    getSavedForecasts();
+    $('#login-form').addClass('hide');
+  }).catch((error) => {
+    const errorMessage = error.message;
+    console.error('Sign In Error: ', errorMessage);
+  });
+};
+
+const addShowRegisterEvent = () => {
+  $('#register-link').on('click', showRegistration);
+  $('#login-link').on('click', showLogIn);
+};
+
+const showLogIn = () => {
+  $('#login-form').removeClass('hide');
+  $('#register-form').addClass('hide');
+};
+
+const showRegistration = () => {
+  $('#login-form').addClass('hide');
+  $('#register-form').removeClass('hide');
+};
+
+const addCreateAccountEvent = () => {
+  $('#register-submit').on('click', (e) => {
+    e.preventDefault();
+    const email = $('#registerEmail').val();
+    const password = $('#registerPassword').val();
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error('Create Account Error: ', errorMessage, ' ', errorCode);
+    });
+  });
+};
+
+// const createAccount = (e) => {
+//   e.preventDefault();
+//   const email = $('#registerEmail').val();
+//   const password = $('#registerPassword').val();
+//   firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+//     $('#registerEmail').val('');
+//     $('#registerPassword').val('');
+//     $('#register-form').addClass('hide');
+//     $('#login-form').removeClass('hide');
+//   }).catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     console.error('Create Account Error: ', errorMessage, ' ', errorCode);
+//   });
+// };
+
 module.exports = {
   addSearchEvent,
   add5DayEvent,
@@ -116,4 +181,7 @@ module.exports = {
   addDeleteEvent,
   addCheckBoxEvent,
   add3DayEvent,
+  addLogInEvent,
+  addShowRegisterEvent,
+  addCreateAccountEvent,
 };

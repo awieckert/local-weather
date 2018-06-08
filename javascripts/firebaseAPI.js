@@ -15,6 +15,16 @@
 
 const data = require('./data.js');
 
+const uid = '';
+
+const setUID = (userID) => {
+  uid = userID;
+};
+
+const getUID = () => {
+  return uid;
+};
+
 const saveForecast = (newForecast) => {
   return new Promise ((resolve, reject) => {
     const firebaseConfig = data.getFirebaseConfig();
@@ -36,7 +46,7 @@ const grabSavedForecasts = () => {
   return new Promise ((resolve, reject) => {
     $.ajax({
       method: 'GET',
-      url: `${firebaseConfig.databaseURL}/saveForecasts.json`,
+      url: `${firebaseConfig.databaseURL}/saveForecasts.json?orderBy="uid"&equalTo="${uid}"`,
     }).done((data) => {
       if (data !== null) {
         Object.keys(data).forEach((key) => {
@@ -85,4 +95,6 @@ module.exports = {
   grabSavedForecasts,
   deleteStuff,
   updateForecast,
+  setUID,
+  getUID,
 };
