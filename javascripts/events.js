@@ -1,6 +1,6 @@
-const data = require('./data.js');
+const weatherAPI = require('./weatherAPI.js');
 const firebaseAPI = require('./firebaseAPI.js');
-const dom = require('./dom.js');
+const data = require('./data.js');
 
 const addCheckBoxEvent = () => {
   $('body').on('click', '.checkbox', checkBoxEvent);
@@ -31,18 +31,18 @@ const addDeleteEvent = () => {
 };
 
 const fiveDayForecastCall = () => {
-  data.fiveDayForecast();
+  weatherAPI.fiveDayForecast();
 };
 
 const threeDayForecastCall = () => {
-  data.threeDayForecast();
+  weatherAPI.threeDayForecast();
 };
 
 const searchWeather = (e) => {
   const inputValue = $('#search').val();
   if (e.key === 'Enter' && data.validateSearch(inputValue)) {
     // call promise function to grab info from API
-    data.currentWeatherCall(inputValue);
+    weatherAPI.currentWeatherCall(inputValue);
   } else if (e.key === 'Enter' && !data.validateSearch(inputValue)) {
     alert('Not a valid Zip');
   }
@@ -58,16 +58,13 @@ const saveToFirebase = (e) => {
   forecastToSave.speed = targetForecast.find('.speed').data('speed');
   forecastToSave.date = targetForecast.find('.date').data('date');
   forecastToSave.icon = targetForecast.find('img').data('icon');
+  forecastToSave.uid = firebaseAPI.getUID();
 
   firebaseAPI.saveForecast(forecastToSave);
 };
 
 const getSavedForecasts = () => {
-  firebaseAPI.grabSavedForecasts().then((forecastArray) => {
-    dom.savedForecastsBuilder(forecastArray);
-  }).catch((err) => {
-    console.error('Poop butt no forecasts: ', err);
-  });
+  firebaseAPI.grabSavedForecastsCall();
 };
 
 const deleteFromFirebase = (e) => {
@@ -94,6 +91,7 @@ const checkBoxEvent = (e) => {
   forecastToUpdate.icon = weatherCard.find('img').data('icon');
   forecastToUpdate.id = weatherCard.data('id');
   forecastToUpdate.isScarry = false;
+  forecastToUpdate.uid = firebaseAPI.getUID();
 
   if ($(labelToCheck).hasClass('active')) {
     // need to send modified weather object to firebase here
@@ -108,6 +106,76 @@ const checkBoxEvent = (e) => {
   }
 };
 
+// Add Event to Log-in Button
+
+const addLogInEvent = () => {
+  $('#login-button').on('click', signInUser);
+};
+
+// Call to firebase. User Sign in
+
+const signInUser = (e) => {
+  e.preventDefault();
+  const email = $('#loginEmail').val();
+  const password = $('#loginPassword').val();
+  firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+    getSavedForecasts();
+    $('#login-form').addClass('hide');
+    $('#search-bar, #logOut').removeClass('hide');
+    $('#loginEmail').val('');
+    $('#loginPassword').val('');
+  }).catch((error) => {
+    const errorMessage = error.message;
+    console.error('Sign In Error: ', errorMessage);
+  });
+};
+
+const addShowRegisterEvent = () => {
+  $('#register-link').on('click', showRegistration);
+  $('#login-link').on('click', showLogIn);
+};
+
+const showLogIn = () => {
+  $('#login-form').removeClass('hide');
+  $('#register-form').addClass('hide');
+};
+
+const showRegistration = () => {
+  $('#login-form').addClass('hide');
+  $('#register-form').removeClass('hide');
+};
+
+const addCreateAccountEvent = () => {
+  $('#register-submit').on('click', createAccount);
+};
+
+const createAccount = (e) => {
+  e.preventDefault();
+  const email = $('#registerEmail').val();
+  const password = $('#registerPassword').val();
+  firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+    $('#registerEmail').val('');
+    $('#registerPassword').val('');
+    $('#register-form').addClass('hide');
+    $('#login-form').removeClass('hide');
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error('Create Account Error: ', errorMessage, ' ', errorCode);
+  });
+};
+
+const addLogOutEvent = () => {
+  $('#logOut').on('click', logOut);
+};
+
+const logOut = () => {
+  firebase.auth().signOut().catch((error) => {
+    alert('You Failed To Log Out');
+    console.error('Log Out Failure: ', error);
+  });
+};
+
 module.exports = {
   addSearchEvent,
   add5DayEvent,
@@ -116,4 +184,8 @@ module.exports = {
   addDeleteEvent,
   addCheckBoxEvent,
   add3DayEvent,
+  addLogInEvent,
+  addShowRegisterEvent,
+  addCreateAccountEvent,
+  addLogOutEvent,
 };

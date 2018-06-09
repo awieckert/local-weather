@@ -1,0 +1,12 @@
+{
+  "saveForecasts": {
+    "name": "test",
+    "temp": "test1",
+    "description": "test2",
+    "pressure": "test4",
+    "speed": "test5",
+    "data": "test6",
+    "icon": "test8",
+    "isScarry": "scarry!"
+  }
+}

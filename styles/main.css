@@ -46,3 +46,32 @@ input {
 .forecast-group {
   margin-top: 13px;
 }
+
+.log-in-header {
+  color: rgb(175, 7, 7);
+  /* background-color: black; */
+}
+
+#login-form {
+  margin-top: 13%;
+}
+
+.register-header {
+  color: rgb(175, 7, 7);
+}
+
+#register-form {
+  margin-top: 13%;
+}
+
+#register-link {
+  color: whitesmoke;
+}
+
+#login-link {
+  color: whitesmoke;
+}
+
+.info {
+  color: whitesmoke;
+}
