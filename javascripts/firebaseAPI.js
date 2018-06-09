@@ -1,21 +1,15 @@
-// let firebaseConfig = {};
+const dom = require('./dom.js');
 
-// const setFirebaseConfig = (config) => {
-//   firebaseConfig = config;
-// };
-
-// const getFirebaseConfig = () => {
-//   return firebaseConfig;
-// };
-
-// module.exports = {
-//   setFirebaseConfig,
-//   getFirebaseConfig,
-// };
-
-const data = require('./data.js');
-
+let firebaseConfig = {};
 let uid = '';
+
+const setFirebaseConfig = (config) => {
+  firebaseConfig = config;
+};
+
+const getFirebaseConfig = () => {
+  return firebaseConfig;
+};
 
 const setUID = (userID) => {
   uid = userID;
@@ -27,7 +21,6 @@ const getUID = () => {
 
 const saveForecast = (newForecast) => {
   return new Promise ((resolve, reject) => {
-    const firebaseConfig = data.getFirebaseConfig();
     $.ajax({
       method: 'POST',
       url: `${firebaseConfig.databaseURL}/saveForecasts.json`,
@@ -42,7 +35,6 @@ const saveForecast = (newForecast) => {
 
 const grabSavedForecasts = () => {
   const savedForecastArray = [];
-  const firebaseConfig = data.getFirebaseConfig();
   return new Promise ((resolve, reject) => {
     $.ajax({
       method: 'GET',
@@ -61,8 +53,15 @@ const grabSavedForecasts = () => {
   });
 };
 
+const grabSavedForecastsCall = () => {
+  grabSavedForecasts().then((forecastsArray) => {
+    dom.savedForecastsBuilder(forecastsArray);
+  }).catch((err) => {
+    console.error('Getting the saved forecasts failed: ', err);
+  });
+};
+
 const deleteStuff = (forecastToDelete) => {
-  const firebaseConfig = data.getFirebaseConfig();
   return new Promise ((resolve, reject) => {
     $.ajax({
       method: 'DELETE',
@@ -76,7 +75,6 @@ const deleteStuff = (forecastToDelete) => {
 };
 
 const updateForecast = (modifiedObject) => {
-  const firebaseConfig = data.getFirebaseConfig();
   return new Promise ((resolve, reject) => {
     $.ajax({
       method: `PUT`,
@@ -97,4 +95,7 @@ module.exports = {
   updateForecast,
   setUID,
   getUID,
+  setFirebaseConfig,
+  getFirebaseConfig,
+  grabSavedForecastsCall,
 };

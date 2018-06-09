@@ -6,7 +6,9 @@ const checkLoginStatus = () => {
     if (user) {
       setUID(user.uid);
     } else {
-
+      $('#search-bar, #register-form, #logOut').addClass('hide');
+      $('#login-form').removeClass('hide');
+      $('#weather-container').html('');
     }
   });
 };

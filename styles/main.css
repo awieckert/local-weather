@@ -63,3 +63,15 @@ input {
 #register-form {
   margin-top: 13%;
 }
+
+#register-link {
+  color: whitesmoke;
+}
+
+#login-link {
+  color: whitesmoke;
+}
+
+.info {
+  color: whitesmoke;
+}
