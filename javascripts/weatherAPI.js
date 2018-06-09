@@ -14,7 +14,7 @@ const getWeatherKey = () => {
 
 const currentWeather = (searchText) => {
   return new Promise ((resolve, reject) => {
-    $.ajax(`http://api.openweathermap.org/data/2.5/weather?zip=${searchText},us&appid=${apiWeatherKey}`).done((data) => {
+    $.ajax(`https://api.openweathermap.org/data/2.5/weather?zip=${searchText},us&appid=${apiWeatherKey}`).done((data) => {
       resolve(data);
     }).fail((err) => {
       reject(err);
@@ -35,7 +35,7 @@ const currentWeatherCall = (zipCode) => {
 const fiveDayWeather = () => {
   const zipCode5Day = $('#search').val();
   return new Promise ((resolve, reject) => {
-    $.ajax(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipCode5Day},us&appid=${apiWeatherKey}`).done((data) => {
+    $.ajax(`https://api.openweathermap.org/data/2.5/forecast?zip=${zipCode5Day},us&appid=${apiWeatherKey}`).done((data) => {
       resolve(data);
     }).fail((err) => {
       reject(err);
@@ -56,7 +56,7 @@ const fiveDayForecast = () => {
 const threeDayWeather = () => {
   const zipCode3Day = $('#search').val();
   return new Promise ((resolve, reject) => {
-    $.ajax(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipCode3Day},us&appid=${apiWeatherKey}`).done((data) => {
+    $.ajax(`https://api.openweathermap.org/data/2.5/forecast?zip=${zipCode3Day},us&appid=${apiWeatherKey}`).done((data) => {
       resolve(data);
     }).fail((err) => {
       reject(err);
